@@ -1,0 +1,69 @@
+class Program
+{
+    static void Main(string[] args)
+    {
+        LinkedListStack<int> stack1 = new LinkedListStack<int>();
+        stack1.Push(1);
+        stack1.Push(2);
+        stack1.Push(3);
+        LinkedListStack<int> stack2 = stack1.Clone();
+        stack1.Pop();
+        stack1.Pop();
+        Console.WriteLine("Stack 1:");
+        PrintStack(stack1);
+        Console.WriteLine("Stack 2:");
+        PrintStack(stack2);
+    }
+
+    static void PrintStack(LinkedListStack<int> stack)
+    {
+        Node<int> current = stack.head;
+        while (current != null)
+        {
+            Console.WriteLine(current.Data);
+            current = current.Next;
+        }
+    }
+    public class Node<T>
+    {
+        public T Data { get; set; }
+        public Node<T> Next { get; set; }
+
+        public Node(T data)
+        {
+            Data = data;
+            Next = null;
+        }
+    }
+
+    public class LinkedListStack<T>
+    {
+        public Node<T> head;
+
+        public LinkedListStack()
+        {
+            head = null;
+        }
+
+        public void Push(T data)
+        {
+            Node<T> newNode = new Node<T>(data);
+            newNode.Next = head;
+            head = newNode;
+        }
+
+        public T Pop()
+        {
+            T data = head.Data;
+            head = head.Next;
+            return data;
+        }
+
+        public LinkedListStack<T> Clone()
+        {
+            LinkedListStack<T> clone = new LinkedListStack<T>();
+            clone.head = this.head;
+            return clone;
+        }
+    }
+}
